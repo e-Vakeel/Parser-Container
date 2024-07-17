@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<properties>
+    <parsers>
+        <parser class="org.apache.tika.parser.DefaultParser">
+        </parser>
+    </parsers>
+    <fetchers>
+        <fetcher class="org.apache.tika.pipes.fetcher.s3.S3Fetcher">
+            <params>
+                <name>s3f</name> 
+                <region>ap-south-1</region>
+                <bucket>e-vakeel</bucket> 
+                <credentialsProvider>instance</credentialsProvider>
+                <!-- or use a profile -->
+                <credentialsProvider>profile</credentialsProvider>
+                <profile>default</profile>
+            </params>
+        </fetcher>
+    </fetchers>
+    <emitters>
+        <emitter class="org.apache.tika.pipes.emitter.s3.S3Emitter">
+            <params>
+                <name>s3e</name> <!-- this can be any name you like -->
+                <region>ap-south-1</region>
+                <bucket>e-vakeel</bucket> <!-- destination bucket -->
+                <credentialsProvider>instance</credentialsProvider>
+                <!-- or use a profile -->
+                <credentialsProvider>profile</credentialsProvider>
+                <profile>default</profile>
+            </params>
+        </emitter>
+    </emitters>
+    <server>
+        <params>
+            <enableUnsecureFeatures>true</enableUnsecureFeatures>
+        </params>
+    </server>
+    <pipes>
+        <params>
+            <tikaConfig>./config/tika-config.xml</tikaConfig>
+        </params>
+    </pipes>
+    <async>
+        <params>
+            <timeoutMillis>1000000</timeoutMillis>
+        </params>
+    </async>
+</properties>
